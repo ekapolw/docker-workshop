@@ -1,0 +1,28 @@
+version: "3"
+services:
+
+    java-container:
+        build: 
+            context: .
+            dockerfile: Dockerfile-java
+        container_name: java-container
+        ports:
+         - 8080:8080
+        networks:
+         - workshop-network
+
+    php-container:
+        build: 
+            context: .
+            dockerfile: Dockerfile-php
+        container_name: php-container
+        ports:
+         - 80:80
+        networks:
+         - workshop-network
+        depends_on:
+         - java-container
+          
+networks:
+    workshop-network:
+        driver: bridge
